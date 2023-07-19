@@ -14,7 +14,10 @@ SHEET = GSPREAD_CLIENT.open("love_sandwiches")
 
 def get_sales_data():
     """
-    Get sales figures from the user
+    Get sales figures from the user.
+    Run a while loop to collect a valid string of data from the user
+    via the terminal, which must be a list of 6 numbers separated
+    by commas. While loop will run until valid data is provided.
     """
     while True:
 
@@ -52,4 +55,15 @@ def validate_data(values):
     
     return True
 
+def update_sales_worksheet(data):
+    """
+    Update worksheet with data in a new row.
+    """
+    print("Updating sales worksheet.....\n")
+    sales_worksheet = SHEET.worksheet("sales")
+    sales_worksheet.append_row(data)
+    print("Sales worksheet update successfully!\n")
+
 data = get_sales_data()
+sales_data = [int(num) for num in data]
+update_sales_worksheet(sales_data)
